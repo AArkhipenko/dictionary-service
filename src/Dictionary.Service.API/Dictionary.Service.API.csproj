@@ -15,10 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\Dictionary.Service.Application.V10\Dictionary.Service.Application.V10.csproj" />
-    <ProjectReference Include="..\Infrastructure\Dictionary.Service.Infrastructure.API\Dictionary.Service.Infrastructure.API.csproj" />
-    <ProjectReference Include="..\Infrastructure\Dictionary.Service.Infrastructure.EF\Dictionary.Service.Infrastructure.EF.csproj" />
-    <ProjectReference Include="..\Infrastructure\Dictionary.Service.Infrastructure.SQL\Dictionary.Service.Infrastructure.SQL.csproj" />
+    <ProjectReference Include="..\Dictionary.Service.Application\Dictionary.Service.Application.csproj" />
+    <ProjectReference Include="..\Dictionary.Service.Infrastructure\Dictionary.Service.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
