@@ -1,0 +1,62 @@
+using Asp.Versioning;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Dictionary.Service.Application.Example.Queries;
+
+namespace Dictionary.Service.API.Controllers.V10
+{
+	/// <summary>
+	/// Контроллер-пример
+	/// </summary>
+    [ApiController]
+	[ApiVersion("10", Deprecated = false)]
+	[Route("examples/v{version:apiVersion}")]
+	public class ExampleController : ApiBaseController
+    {
+		private readonly IMediator _mediator;
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ExampleController"/> class.
+		/// </summary>
+		/// <param name="mediator"><see cref="IMediator"/></param>
+		/// <param name="logger"><see cref="ILogger"/></param>
+		/// <exception cref="ArgumentNullException">не задан входной параметр</exception>
+		public ExampleController(
+			IMediator mediator,
+			ILogger<ExampleController> logger)
+			: base(logger)
+        {
+			_mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+		}
+
+		/// <summary>
+		/// Тестовый метод получения данных
+		/// </summary>
+		/// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+		/// <returns>Список случайных чисел</returns>
+		[HttpGet]
+        public async Task<ActionResult<IEnumerable<int>>> GetAsync(CancellationToken cancellationToken)
+        {
+			using(_ = base.BeginLoggingScope())
+			{
+				var result = await this._mediator.Send(new GetRandomQuery(), cancellationToken);
+				return Ok(result);
+			}
+		}
+
+		/// <summary>
+		/// Тестовый метод получения данных
+		/// </summary>
+		/// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+		/// <returns>Список случайных чисел</returns>
+		[HttpGet("exception")]
+		public async Task<IActionResult> GetExceptionAsync(CancellationToken cancellationToken)
+		{
+			using (_ = base.BeginLoggingScope())
+			{
+				_ = await this._mediator.Send(new GetExceptionQuery(), cancellationToken);
+				return Ok();
+			}
+		}
+	}
+}
