@@ -13,5 +13,12 @@ namespace Dictionary.Service.Domain.Repositories
 		/// <param name="cancellationToken"><see cref="CancellationToken"/></param>
 		/// <returns>Список лекарственных средств</returns>
 		Task<IEnumerable<Element>> GetMedicamentTypeList(CancellationToken cancellationToken);
-    }
+
+		/// <summary>
+		/// Получение списка пользовательского представления времени суток
+		/// </summary>
+		/// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+		/// <returns>Список пользовательского представления времени суток</returns>
+		Task<List<Element>> GetDayTimeTypeList(CancellationToken cancellationToken);
+	}
 }

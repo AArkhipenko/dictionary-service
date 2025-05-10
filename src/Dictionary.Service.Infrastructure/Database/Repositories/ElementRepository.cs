@@ -74,5 +74,19 @@ namespace Dictionary.Service.Infrastructure.Database.Repositories
 				};
 			});
 		}
+
+		/// <inheritdoc/>
+		public Task<List<Element>> GetDayTimeTypeList(CancellationToken cancellationToken)
+		{
+			return this._context.DayTimeTypes
+				.Select(x => new Element
+				{
+					Id = x.Id,
+					Name = x.Name,
+					Code = x.Code,
+					FullName = $"{x.Name} ({x.Time.ToString("HH:mm")})"
+				})
+				.ToListAsync(cancellationToken);
+		}
 	}
 }
