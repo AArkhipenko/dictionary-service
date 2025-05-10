@@ -1,8 +1,12 @@
 using AArkhipenko.Core;
 using AArkhipenko.Logging;
+using AArkhipenko.Swagger.Models;
+using AArkhipenko.Swagger;
 using Dictionary.Service.API.Extensions;
 using Dictionary.Service.API.Settings;
 using Dictionary.Service.Application.V10;
+using System;
+using Microsoft.OpenApi.Models;
 
 namespace Dictionary.Service.API
 {
@@ -11,6 +15,15 @@ namespace Dictionary.Service.API
 	/// </summary>
 	public class Program
 	{
+		private readonly static OpenApiInfo[] _versions = new[]
+		{
+			new OpenApiInfo
+			{
+				Version = "v10",
+				Title = "Dictionary.Service API v1.0"
+			}
+		};
+
 		/// <summary>
 		/// Входная точка приложения
 		/// </summary>
@@ -33,12 +46,12 @@ namespace Dictionary.Service.API
 			{
 				builder.Logging.AddFileLogging();
 			}
+			// AArkhipenko.Swagger
+			builder.Services.AddCustomSwagger(_versions);
 
 			// Методы расширения проектов
 			// Добавление поддержки Mediatr для проекта Dictionary.Service.Application.V10
 			builder.Services.AddMediatrV10Extension();
-			// Добавление работы со Swagger
-			builder.Services.AddSwaggerExtension();
 			// Добавление возможности работы с JWT
 			builder.Services.AddAuthJwt(builder.Configuration);
 
@@ -51,9 +64,8 @@ namespace Dictionary.Service.API
 			app.UseCustomHealthCheck();
 			// AArkhipenko.Logging
 			app.UseLoggingMiddleware();
-
-			// Использование Swagger
-			app.UseSwaggerExtension(builder.Environment.IsDevelopment());
+			// AArkhipenko.Swagger
+			app.UseCustomSwagger(_versions);
 
 			app.UseHttpsRedirection();
 			app.UseAuthentication();
