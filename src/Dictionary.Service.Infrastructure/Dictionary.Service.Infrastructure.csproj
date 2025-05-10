@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AArkhipenko.Keycloak" Version="7.0.2-rc.1" />
+    <PackageReference Include="AArkhipenko.UserHelper" Version="7.0.0-rc.2" />
   </ItemGroup>
 
   <ItemGroup>

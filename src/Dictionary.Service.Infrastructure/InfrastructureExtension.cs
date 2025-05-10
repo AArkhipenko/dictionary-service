@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AArkhipenko.Keycloak;
+using AArkhipenko.UserHelper;
 
 namespace Dictionary.Service.Infrastructure
 {
@@ -19,7 +20,8 @@ namespace Dictionary.Service.Infrastructure
 			=> services
 			.AddDbContext(configuration)
 			.AddRepositories()
-			.AddKeycloakAuth(configuration);
+			.AddKeycloakAuth(configuration)
+			.AddNpgsqlUserProvider();
 
 		/// <summary>
 		/// Добавление контекста БД
