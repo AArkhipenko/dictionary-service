@@ -29,11 +29,17 @@ namespace Dictionary.Service.Infrastructure.Database
 		/// </summary>
 		public DbSet<MedicamentType> MedicamentTypes { get; set; }
 
+		/// <summary>
+		/// Словарь пользовательского представления времени суток
+		/// </summary>
+		public DbSet<DayTimeType> DayTimeTypes { get; set; }
+
 		/// <inheritdoc/>
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			ActiveSubstanceType.Configure(modelBuilder);
 			MedicamentType.Configure(modelBuilder);
+			DayTimeType.Configure(modelBuilder);
 		}
 	}
 }

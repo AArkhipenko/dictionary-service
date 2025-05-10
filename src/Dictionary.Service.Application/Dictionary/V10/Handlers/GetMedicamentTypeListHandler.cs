@@ -1,11 +1,11 @@
 ﻿using AArkhipenko.Core.Logging;
-using Dictionary.Service.Application.Dictionary.Queries;
+using Dictionary.Service.Application.Dictionary.V10.Queries;
 using Dictionary.Service.Domain.Models;
 using Dictionary.Service.Domain.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Dictionary.Service.Application.Dictionary.Handlers
+namespace Dictionary.Service.Application.Dictionary.V10.Handlers
 {
 	/// <summary>
 	/// Выполнение запроса <see cref="GetMedicamentTypeListQuery"/>
@@ -23,15 +23,15 @@ namespace Dictionary.Service.Application.Dictionary.Handlers
 			ILogger<GetMedicamentTypeListHandler> logger)
 			: base(logger)
 		{
-			this._objectRepository = objectRepository ?? throw new ArgumentNullException(nameof(objectRepository));
+			_objectRepository = objectRepository ?? throw new ArgumentNullException(nameof(objectRepository));
 		}
 
 		/// <inheritdoc/>
 		public Task<IEnumerable<Element>> Handle(GetMedicamentTypeListQuery request, CancellationToken cancellationToken)
 		{
-			using (_ = base.BeginLoggingScope())
+			using (_ = BeginLoggingScope())
 			{
-				return this._objectRepository.GetMedicamentTypeList(cancellationToken);
+				return _objectRepository.GetMedicamentTypeList(cancellationToken);
 			}
 		}
 	}

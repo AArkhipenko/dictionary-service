@@ -1,5 +1,5 @@
 using Asp.Versioning;
-using Dictionary.Service.Application.Dictionary.Queries;
+using Dictionary.Service.Application.Dictionary.V10.Queries;
 using Dictionary.Service.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -37,12 +37,26 @@ namespace Dictionary.Service.API.Controllers.V10
 		/// <param name="cancellationToken"><see cref="CancellationToken"/></param>
 		/// <returns>Список лекарственных средств</returns>
 		[HttpGet("medicament-type/list")]
-		[AllowAnonymous]
 		public async Task<ActionResult<IEnumerable<Element>>> GetMedicamentTypeListAsync(CancellationToken cancellationToken = default)
 		{
 			using (_ = base.BeginLoggingScope())
 			{
 				var list = await this._mediator.Send(new GetMedicamentTypeListQuery(), cancellationToken);
+				return Ok(list);
+			}
+		}
+
+		/// <summary>
+		/// Получение списка пользовательского представления времени суток
+		/// </summary>
+		/// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+		/// <returns>Список лекарственных средств</returns>
+		[HttpGet("day-time-type/list")]
+		public async Task<ActionResult<IEnumerable<Element>>> GetDayTimeTypeListAsync(CancellationToken cancellationToken = default)
+		{
+			using (_ = base.BeginLoggingScope())
+			{
+				var list = await this._mediator.Send(new GetDayTimeTypeListQuery(), cancellationToken);
 				return Ok(list);
 			}
 		}
