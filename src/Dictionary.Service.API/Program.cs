@@ -1,4 +1,5 @@
 using AArkhipenko.Core;
+using AArkhipenko.Logging;
 using Dictionary.Service.API.Extensions;
 using Dictionary.Service.API.Settings;
 using Dictionary.Service.Application.V10;
@@ -23,6 +24,15 @@ namespace Dictionary.Service.API
 			// AArkhipenko.Core
 			builder.Services.AddCustomHealthCheck();
 			builder.Services.AddVersioning();
+			// AArkhipenko.Logging
+			if (builder.Environment.IsDevelopment())
+			{
+				builder.Logging.AddConsoleLogging();
+			}
+			else
+			{
+				builder.Logging.AddFileLogging();
+			}
 
 			// Методы расширения проектов
 			// Добавление поддержки Mediatr для проекта Dictionary.Service.Application.V10
@@ -31,8 +41,6 @@ namespace Dictionary.Service.API
 			builder.Services.AddSwaggerExtension();
 			// Добавление возможности работы с JWT
 			builder.Services.AddAuthJwt(builder.Configuration);
-			// Добавление работы с логером
-			builder.Logging.AddLoggingExtension(builder.Environment.IsDevelopment());
 
 			var app = builder.Build();
 
@@ -41,13 +49,16 @@ namespace Dictionary.Service.API
 			app.UseRequestChainMiddleware();
 			app.UseExceptionMiddleware();
 			app.UseCustomHealthCheck();
+			// AArkhipenko.Logging
+			app.UseLoggingMiddleware();
 
 			// Использование Swagger
 			app.UseSwaggerExtension(builder.Environment.IsDevelopment());
-			// Configure the HTTP request pipeline
+
 			app.UseHttpsRedirection();
 			app.UseAuthentication();
 			app.UseAuthorization();
+
 			app.MapControllers();
 
 			app.Run();
