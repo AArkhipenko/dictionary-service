@@ -7,6 +7,7 @@ using System;
 using Microsoft.OpenApi.Models;
 using Dictionary.Service.Infrastructure;
 using AArkhipenko.Keycloak.Security;
+using Microsoft.Extensions.Configuration;
 
 namespace Dictionary.Service.API
 {
@@ -31,6 +32,10 @@ namespace Dictionary.Service.API
 		public static void Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
+
+#if DEBUG
+			builder.Configuration.AddYamlFile("DebugConfig.yml", false);
+#endif
 
 			builder.Services.AddControllers();
 			// Методы расширения из nuget-пакетов
