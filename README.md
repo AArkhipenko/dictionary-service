@@ -1,2 +1,3 @@
-# template-service
-Шаблон сервисного приложения
+# dictionary-service
+
+Сервис для работы со словарями
