@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dictionary.Service.Application.V10
+namespace Dictionary.Service.Application
 {
 	/// <summary>
 	/// Методы расширешения уроdня Application
@@ -18,7 +18,7 @@ namespace Dictionary.Service.Application.V10
 		/// </summary>
 		/// <param name="services"><see cref="IServiceCollection"/></param>
 		/// <returns><see cref="IServiceCollection"/></returns>
-		public static IServiceCollection AddMediatrV10Extension(this IServiceCollection services)
+		public static IServiceCollection AddMediatrExtension(this IServiceCollection services)
 		{
 			_ = services.AddMediatR(conf =>
 				conf.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));

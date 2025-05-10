@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Dictionary.Service.Application.V10.Example.Queries;
+using Dictionary.Service.Application.Example.Queries;
 using AArkhipenko.Core.Logging;
 
-namespace Dictionary.Service.Application.V10.Example.Hadlers
+namespace Dictionary.Service.Application.Example.Hadlers
 {
 	/// <summary>
 	/// Выполнение <see cref="GetRandomQuery"/>

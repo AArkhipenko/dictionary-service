@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Dictionary.Service.Application.V10.Example.Queries
+namespace Dictionary.Service.Application.Example.Queries
 {
 	/// <summary>
 	/// Запрос для проверки работы прослойки обработки исключений

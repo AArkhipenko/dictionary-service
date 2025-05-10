@@ -7,7 +7,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Dictionary.Service.API.Settings;
 using Xunit.Abstractions;
 
 namespace Dictionary.Service.API.Tests
@@ -61,12 +60,6 @@ namespace Dictionary.Service.API.Tests
 				.AddJsonFile("appsettings.Test.json")
 				.Build();
 
-			var jwtTokenSettings = configuration.GetSection("JwtTokenSettings").Get<KeycloakSettings>();
-			if (jwtTokenSettings is null)
-			{
-				throw new Exception("Не найдена секция настройки JWT");
-			}
-
 			var server = new WebApplicationFactory<Program>()
 				.WithWebHostBuilder(builder =>
 				{
@@ -75,37 +68,7 @@ namespace Dictionary.Service.API.Tests
 					builder.ConfigureServices(configureServices);
 				});
 			var client = server.CreateClient();
-
-			var fakeJwtToken = GenerateFakeToken(jwtTokenSettings);
-			client.DefaultRequestHeaders.Add("Authorization", $"Bearer {fakeJwtToken}");
 			return client;
-		}
-
-		/// <summary>
-		/// Генерация не настоящего JWT-токена
-		/// </summary>
-		/// <param name="jwtTokenSettings"><inheritdoc cref="KeycloakSettings" path="/summary"/></param>
-		/// <returns>JWT-токен</returns>
-		private static string GenerateFakeToken(KeycloakSettings jwtTokenSettings)
-		{
-
-			var claims = new List<Claim>() {
-				new Claim(JwtRegisteredClaimNames.NameId, "FakeUserId"),
-				new Claim(JwtRegisteredClaimNames.UniqueName, "FakeUniqueUser"),
-			};
-
-			var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SecriteKeySecriteKeySecriteKeySecriteKeySecriteKey"));
-			var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-
-			var tokeOptions = new JwtSecurityToken(
-				issuer: "Issuer",
-				audience: "Audience",
-				claims: claims,
-				expires: DateTime.UtcNow.AddHours(24),
-				signingCredentials: signinCredentials
-			);
-
-			return new JwtSecurityTokenHandler().WriteToken(tokeOptions);
 		}
 	}
 }

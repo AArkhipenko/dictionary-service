@@ -2,11 +2,11 @@ using AArkhipenko.Core;
 using AArkhipenko.Logging;
 using AArkhipenko.Swagger.Models;
 using AArkhipenko.Swagger;
-using Dictionary.Service.API.Extensions;
-using Dictionary.Service.API.Settings;
-using Dictionary.Service.Application.V10;
+using Dictionary.Service.Application;
 using System;
 using Microsoft.OpenApi.Models;
+using Dictionary.Service.Infrastructure;
+using AArkhipenko.Keycloak.Security;
 
 namespace Dictionary.Service.API
 {
@@ -47,13 +47,14 @@ namespace Dictionary.Service.API
 				builder.Logging.AddFileLogging();
 			}
 			// AArkhipenko.Swagger
-			builder.Services.AddCustomSwagger(_versions);
+			builder.Services.AddCustomSwagger(_versions, new[]
+			{
+				new SecurityModel(KeycloakSecurityScheme.DefaultKey, KeycloakSecurityScheme.Default)
+			});
 
 			// Методы расширения проектов
-			// Добавление поддержки Mediatr для проекта Dictionary.Service.Application.V10
-			builder.Services.AddMediatrV10Extension();
-			// Добавление возможности работы с JWT
-			builder.Services.AddAuthJwt(builder.Configuration);
+			builder.Services.AddMediatrExtension();
+			builder.Services.AddInfrastructure(builder.Configuration);
 
 			var app = builder.Build();
 

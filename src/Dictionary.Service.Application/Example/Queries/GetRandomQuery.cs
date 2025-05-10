@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Dictionary.Service.Application.V10.Example.Queries
+namespace Dictionary.Service.Application.Example.Queries
 {
 	/// <summary>
 	/// Запрос на получение списка случайных чисел

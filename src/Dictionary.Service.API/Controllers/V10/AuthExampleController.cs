@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
-using Dictionary.Service.Application.V10.Example.Queries;
+using Dictionary.Service.Application.Example.Queries;
 
 namespace Dictionary.Service.API.Controllers.V10
 {
