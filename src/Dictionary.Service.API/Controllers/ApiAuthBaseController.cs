@@ -2,13 +2,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.CompilerServices;
-using Dictionary.Service.Domain.Core.Logging;
 
 namespace Dictionary.Service.API.Controllers
 {
 	/// <summary>
-	/// Базовый контроллер для всех контроллеров
-	/// Реализует <see cref="ILoggerWrapper"/>
+	/// Базовый контроллер c поддержкой авторизации
 	/// </summary>
 	[Authorize]
 	public abstract class ApiAuthBaseController : ApiBaseController
@@ -17,11 +15,8 @@ namespace Dictionary.Service.API.Controllers
 		/// Initializes a new instance of the <see cref="ApiAuthBaseController"/> class.
 		/// </summary>
 		/// <param name="logger"><see cref="ILogger"/></param>
-		/// <param name="contextAccessor"><see cref="IHttpContextAccessor"/></param>
-		protected ApiAuthBaseController(
-			ILogger logger,
-			IHttpContextAccessor contextAccessor)
-			: base(logger, contextAccessor)
+		protected ApiAuthBaseController(ILogger logger)
+			: base(logger)
 		{
 		}
 	}

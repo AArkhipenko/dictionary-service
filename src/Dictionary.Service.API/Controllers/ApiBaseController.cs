@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Runtime.CompilerServices;
-using Dictionary.Service.Domain.Core.Logging;
+using AArkhipenko.Core.Logging;
 
 namespace Dictionary.Service.API.Controllers
 {
@@ -16,12 +16,9 @@ namespace Dictionary.Service.API.Controllers
 		/// Initializes a new instance of the <see cref="ApiBaseController"/> class.
 		/// </summary>
 		/// <param name="logger"><see cref="ILogger"/></param>
-		/// <param name="contextAccessor"><see cref="IHttpContextAccessor"/></param>
-		public ApiBaseController(
-			ILogger logger,
-			IHttpContextAccessor contextAccessor)
+		public ApiBaseController(ILogger logger)
         {
-            this._loggerWrapper = new LoggerWrapper(logger, contextAccessor);
+            this._loggerWrapper = new LoggerWrapper(logger);
         }
 
         /// <inheritdoc />

@@ -23,12 +23,9 @@ namespace Dictionary.Service.API.Controllers.V10
 		/// Initializes a new instance of the <see cref="AuthExampleController"/> class.
 		/// </summary>
 		/// <param name="logger"><see cref="ILogger"/></param>
-		/// <param name="contextAccessor"><see cref="IHttpContextAccessor"/></param>
 		/// <exception cref="ArgumentNullException">не задан входной параметр</exception>
-		public AuthExampleController(
-			ILogger<ExampleController> logger,
-			IHttpContextAccessor contextAccessor)
-			: base(logger, contextAccessor)
+		public AuthExampleController(ILogger<ExampleController> logger)
+			: base(logger)
         {
 		}
 

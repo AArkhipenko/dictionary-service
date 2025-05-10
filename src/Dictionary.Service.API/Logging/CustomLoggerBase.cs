@@ -1,7 +1,7 @@
-﻿using MediatR.NotificationPublishers;
+﻿using AArkhipenko.Core.Logging;
+using MediatR.NotificationPublishers;
 using Newtonsoft.Json;
 using System;
-using Dictionary.Service.Domain.Core.Logging;
 
 namespace Dictionary.Service.API.Logging
 {
@@ -10,7 +10,7 @@ namespace Dictionary.Service.API.Logging
 	/// </summary>
 	internal abstract class CustomLoggerBase : ILogger, IDisposable
 	{
-		private ScopeModel? _scopeModel = null;
+		private LoggerWrapperScope? _scopeModel = null;
 		private readonly Formatting _jsonFormatting;
 
 		/// <summary>
@@ -28,9 +28,9 @@ namespace Dictionary.Service.API.Logging
 		/// <inheritdoc/>
 		public IDisposable BeginScope<TState>(TState scopeModel)
 		{
-			if (scopeModel is not null && scopeModel is ScopeModel)
+			if (scopeModel is not null && scopeModel is LoggerWrapperScope)
 			{
-				this._scopeModel = scopeModel as ScopeModel;
+				this._scopeModel = scopeModel as LoggerWrapperScope;
 			}
 			return this;
 		}
@@ -59,8 +59,8 @@ namespace Dictionary.Service.API.Logging
 			{
 				Timestamp = DateTime.UtcNow,
 				LogLevel = logLevel.ToString(),
-				RequestId = this._scopeModel is null ? Guid.Empty : this._scopeModel.RequestId,
-				Scope = this._scopeModel is null ? "unknown" : $"{this._scopeModel.ClassName}.{this._scopeModel.MethodName}",
+				RequestId = Guid.Empty,
+				Scope = "unknown",
 				Message = message,
 				Exception = exception?.ToString()
 			};

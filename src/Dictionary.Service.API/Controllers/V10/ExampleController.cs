@@ -20,13 +20,11 @@ namespace Dictionary.Service.API.Controllers.V10
 		/// </summary>
 		/// <param name="mediator"><see cref="IMediator"/></param>
 		/// <param name="logger"><see cref="ILogger"/></param>
-		/// <param name="contextAccessor"><see cref="IHttpContextAccessor"/></param>
 		/// <exception cref="ArgumentNullException">не задан входной параметр</exception>
 		public ExampleController(
 			IMediator mediator,
-			ILogger<ExampleController> logger,
-			IHttpContextAccessor contextAccessor)
-			: base(logger, contextAccessor)
+			ILogger<ExampleController> logger)
+			: base(logger)
         {
 			_mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
 		}

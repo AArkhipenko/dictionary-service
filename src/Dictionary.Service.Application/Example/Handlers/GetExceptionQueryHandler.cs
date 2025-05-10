@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Dictionary.Service.Application.V10.Example.Queries;
-using Dictionary.Service.Domain.Core.Exceptions;
-using Dictionary.Service.Domain.Core.Logging;
+using AArkhipenko.Core.Logging;
+using AArkhipenko.Core.Exceptions;
 
 namespace Dictionary.Service.Application.V10.Example.Hadlers
 {
@@ -16,11 +16,8 @@ namespace Dictionary.Service.Application.V10.Example.Hadlers
 		/// Initializes a new instance of the <see cref="GetExceptionQueryHandler"/> class.
 		/// </summary>
 		/// <param name="logger"><see cref="ILogger"/></param>
-		/// <param name="contextAccessor"><see cref="IHttpContextAccessor"/></param>
-		public GetExceptionQueryHandler(
-			ILogger<GetExceptionQueryHandler> logger,
-			IHttpContextAccessor contextAccessor)
-			: base(logger, contextAccessor) { }
+		public GetExceptionQueryHandler(ILogger<GetExceptionQueryHandler> logger)
+			: base(logger) { }
 
 		/// <inheritdoc/>
 		public Task<Unit> Handle(GetExceptionQuery request, CancellationToken cancellationToken)
